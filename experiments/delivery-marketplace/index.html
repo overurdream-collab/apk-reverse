@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172b4d">
+  <title>مختبر التوصيل المستقل | نموذج تجريبي</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:#f3f6fa;color:#172b4d}
+    *{box-sizing:border-box}body{margin:0;line-height:1.65}main{max-width:1050px;margin:auto;padding:24px 18px 65px}
+    header{background:linear-gradient(120deg,#142845,#315988);color:#fff;padding:30px 18px}
+    header>div{max-width:1050px;margin:auto}h1{font-size:clamp(1.5rem,3vw,2.3rem);margin:4px 0}h2{font-size:1.35rem}h3{font-size:1.05rem;margin:.2rem 0}
+    .eyebrow{letter-spacing:1px;font-size:.79rem;opacity:.8}.muted{color:#5f7086;font-size:.91rem}
+    header .muted{color:#dce8f4}.notice{background:#fff4d6;color:#684c13;border:1px solid #f1d68e;border-radius:12px;padding:12px 15px;margin:18px 0}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.tab{border:1px solid #d8e2ec;background:#fff;color:#243b56}
+    .tab.active{background:#172b4d;color:#fff;border-color:#172b4d}
+    button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 17px;min-height:42px;background:#157d7a;color:#fff;font-weight:650}
+    button:hover{filter:brightness(.94)}button:disabled{opacity:.45;cursor:default}
+    button.ghost{background:#e8eff6;color:#203c60}button.danger{background:#9a404b}
+    input,textarea,select{font:inherit;padding:10px;border:1px solid #c8d3df;background:#fff;border-radius:9px;width:100%;color:#172b4d}
+    textarea{min-height:75px;resize:vertical}label{font-weight:650;display:block;margin-bottom:6px}
+    .shell{display:grid;grid-template-columns:minmax(270px,1fr) minmax(0,1.45fr);gap:18px}
+    .panel,.order,.metric{background:#fff;border:1px solid #e1e7f0;border-radius:15px;padding:20px;box-shadow:0 4px 16px #17365309}
+    .panel h2,.panel h3{margin-top:0}.field{margin:12px 0}.stack{display:grid;gap:13px}.order{padding:17px}
+    .order-head,.spread{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .pill{border:1px solid #cee2e3;border-radius:99px;background:#eef9f8;color:#116560;padding:4px 10px;font-size:.8rem}
+    .small{font-size:.84rem}.details{color:#52647a}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .quote{display:flex;justify-content:space-between;align-items:center;gap:9px;padding:10px 0;border-top:1px solid #edf0f4}
+    .quote strong{color:#116560}.chat{background:#f6f9fc;border-radius:11px;padding:12px;margin-top:12px}
+    .message{background:#fff;border-radius:9px;padding:8px 11px;margin:7px 0;border:1px solid #e4ebf3}
+    .message.mine{background:#e9f6f5;border-color:#b7dbd8}.message b{font-size:.78rem}
+    .compose{display:flex;gap:8px;margin-top:10px}.compose input{flex:1}.compose button{flex:0 0 auto}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric b{font-size:1.8rem;display:block;color:#116560}
+    .hidden{display:none!important}#toast{position:fixed;bottom:18px;left:18px;background:#173653;color:#fff;padding:12px 18px;border-radius:12px;max-width:90vw;display:none;box-shadow:0 7px 20px #0003}
+    footer{text-align:center;color:#607189;font-size:.84rem;margin-top:30px}
+    @media(max-width:730px){.shell{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.panel{padding:16px}}
+  </style>
+</head>
+<body>
+<header><div><div class="eyebrow">INDEPENDENT DELIVERY LAB • POC 1</div><h1>مختبر سوق خدمات التوصيل</h1>
+<p class="muted">نموذج مستقل مستوحى من فئة تطبيقات الطلبات والمندوبين، وليس منتجاً تابعاً لمرسول.</p></div></header>
+<main>
+  <div class="notice"><strong>وضع تجريبي فقط:</strong> لا توجد حسابات حقيقية أو تتبع GPS أو مدفوعات أو طلبات فعلية. البيانات محفوظة محلياً في متصفحك فقط.</div>
+  <nav class="tabs" aria-label="أدوار التجربة">
+    <button class="tab active" data-tab="customer">واجهة العميل</button>
+    <button class="tab" data-tab="courier">واجهة المندوب</button>
+    <button class="tab" data-tab="admin">لوحة المتابعة</button>
+  </nav>
+  <section id="customer" class="role"><div class="shell">
+    <section class="panel"><h2>إنشاء طلب جديد</h2><p class="muted">حدد المطلوب والمواقع. ستتمكن بعد ذلك من قبول أحد عروض المندوبين.</p>
+      <form id="order-form">
+        <div class="field"><label for="description">ما الذي تريد توصيله؟</label><textarea id="description" maxlength="300" required placeholder="مثال: استلام مستندات من المكتبة"></textarea></div>
+        <div class="field"><label for="pickup">موقع الاستلام</label><input id="pickup" maxlength="300" required placeholder="مثال: شارع الزبيري"></div>
+        <div class="field"><label for="dropoff">موقع التسليم</label><input id="dropoff" maxlength="300" required placeholder="مثال: حي حدة"></div>
+        <button type="submit">نشر الطلب التجريبي</button>
+      </form>
+    </section>
+    <section><h2>طلباتي</h2><div id="customer-orders" class="stack"></div></section>
+  </div></section>
+  <section id="courier" class="role hidden">
+    <section class="panel"><div class="spread"><div><h2>لوحة المندوب</h2><p class="muted">بدّل المندوب لاختبار وجود عروض متعددة للطلب نفسه.</p></div>
+      <div style="min-width:210px"><label for="courier-id">الهوية التجريبية</label><select id="courier-id"><option value="courier1">مندوب أ</option><option value="courier2">مندوب ب</option></select></div>
+    </div></section>
+    <h2>الطلبات المتاحة / المسندة</h2><div id="courier-orders" class="stack"></div>
+  </section>
+  <section id="admin" class="role hidden"><h2>لوحة متابعة تشغيلية</h2><div class="metrics" id="metrics"></div>
+    <section class="panel" style="margin-top:16px"><h3>مؤشرات التجربة</h3><p class="muted">الأرقام محلية ووهمية؛ لا تثبت توفر خدمة توصيل في الواقع. السعر المعلن في العرض لا يعني تحصيله.</p>
+    <div id="admin-summary" class="stack"></div>
+    <div class="actions"><button id="reset" type="button" class="danger">مسح بيانات التجربة</button></div></section>
+  </section>
+  <footer>Independent proof of concept • لا يستخدم API أو شيفرة أو علامة مرسول • الأسعار للعرض بالريال اليمني</footer>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="./ui.mjs"></script>
+</body>
+</html>
