@@ -1,0 +1,25 @@
+name: Delivery Marketplace POC
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'experiments/delivery-marketplace/**'
+      - '.github/workflows/delivery-marketplace-poc.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-simulation-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check experiments/delivery-marketplace/core.mjs
+          node --check experiments/delivery-marketplace/ui.mjs
+      - name: Verify simulated courier lifecycle
+        run: node --test experiments/delivery-marketplace/core.test.mjs
